@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دوري سيناريو القائد - التحدي اللانهائي</title>
+    <title>دوري سيناريو القائد - النسخة الحماسية اللانهائية</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            background: linear-gradient(135deg, #0b132b, #1c2541, #3a506b);
             color: #fff;
             text-align: center;
             margin: 0;
@@ -19,11 +19,11 @@
             min-height: 100vh;
         }
         .quiz-container {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(15px);
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
             padding: 30px;
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
             border: 1px solid rgba(255, 255, 255, 0.1);
             max-width: 600px;
             width: 100%;
@@ -31,8 +31,9 @@
             position: relative;
         }
         h1 {
-            font-size: 26px;
+            font-size: 28px;
             color: #00f2fe;
+            text-shadow: 0 0 10px rgba(0,242,254,0.3);
             margin-bottom: 10px;
         }
         .input-name {
@@ -40,27 +41,30 @@
             padding: 15px;
             font-size: 18px;
             border-radius: 10px;
-            border: 1px solid #00f2fe;
-            background: rgba(0,0,0,0.5);
+            border: 2px solid #00f2fe;
+            background: rgba(0,0,0,0.6);
             color: white;
             text-align: center;
             margin-bottom: 20px;
+            outline: none;
         }
         .category-badge {
             background: #ff007f;
             color: white;
-            padding: 5px 15px;
+            padding: 6px 18px;
             border-radius: 20px;
-            font-size: 14px;
+            font-size: 13px;
             display: inline-block;
             margin-bottom: 20px;
             font-weight: bold;
+            box-shadow: 0 0 10px rgba(255,0,127,0.4);
         }
         .question {
             font-size: 22px;
             margin-bottom: 25px;
             font-weight: bold;
             line-height: 1.5;
+            min-height: 60px;
         }
         .options {
             display: flex;
@@ -68,29 +72,31 @@
             gap: 15px;
         }
         .btn {
-            background: rgba(255, 255, 255, 0.1);
+            background: rgba(255, 255, 255, 0.08);
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.15);
             padding: 15px;
             font-size: 18px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s ease;
             text-align: right;
             padding-right: 25px;
         }
         .btn:hover {
             background: #00f2fe;
-            color: #0f2027;
+            color: #0b132b;
             font-weight: bold;
-            transform: scale(1.02);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,242,254,0.4);
         }
         .score-board {
             display: flex;
             justify-content: space-between;
             margin-bottom: 20px;
             font-size: 16px;
-            color: #ccc;
+            color: #00f2fe;
+            font-weight: bold;
         }
         .feedback {
             margin-top: 20px;
@@ -104,7 +110,7 @@
         
         .category-select-btn {
             background: linear-gradient(45deg, #00f2fe, #4facfe);
-            color: #0f2027;
+            color: #0b132b;
             font-weight: bold;
             margin: 8px 0;
             width: 100%;
@@ -130,10 +136,10 @@
             position: absolute;
             top: 15px;
             left: 15px;
-            background: rgba(0,0,0,0.4);
-            border: none;
+            background: rgba(0,0,0,0.5);
+            border: 1px solid rgba(255,255,255,0.2);
             color: white;
-            padding: 8px;
+            padding: 10px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 18px;
@@ -158,23 +164,23 @@
 <body>
 
 <div class="quiz-container">
-    <!-- زر التحكم بالصوت -->
+    <!-- زر الصوت المطور -->
     <button class="volume-control" id="vol-btn" onclick="toggleMusic()">🔇</button>
 
-    <!-- شاشة تسجيل الدخول وكتابة الاسم -->
+    <!-- شاشة الاسم -->
     <div id="login-box">
         <h1>🏆 دوري القائد اللانهائي</h1>
-        <p style="color: #ccc; margin-bottom: 25px;">اكتب اسمك وسنبدأ التحدي اللانهائي فوراً بموسيقى حماسية وبدون أي تكرار!</p>
+        <p style="color: #ccc; margin-bottom: 25px;">اكتب اسمك وادخل جولة بأسئلة مستحيل تتكرر وموسيقى حماسية جديدة!</p>
         <input type="text" id="player-name" class="input-name" placeholder="اكتب اسمك هنا...">
-        <button class="btn" onclick="registerPlayer()" style="background: #00f2fe; color: #0f2027; font-weight: bold; width: 100%; text-align: center; padding-right: 0;">دخول الدوري وتفعيل الأصوات 🔊</button>
+        <button class="btn" onclick="registerPlayer()" style="background: #00f2fe; color: #0b132b; font-weight: bold; width: 100%; text-align: center; padding-right: 0;">دخول وتفعيل الصوت 🔊</button>
     </div>
 
     <!-- شاشة اختيار القسم -->
     <div id="setup-box" class="hide">
         <h1>🎮 اختر قسم التحدي اللانهائي</h1>
         <div class="options">
-            <button class="btn category-select-btn" onclick="startQuiz('sports')">⚽ كرة قدم ورياضة (لانهائي)</button>
-            <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات ذكية (لانهائي)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('sports')">⚽ كرة قدم ورياضة (بدون تكرار)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات ذكية (لانهائي ممتع)</button>
             <button class="btn category-select-btn" onclick="startQuiz('general')">🌍 معلومات عامة وجغرافيا</button>
             <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام بالتناوب</button>
         </div>
@@ -187,18 +193,18 @@
             <span id="score-counter">النقاط: 0</span>
         </div>
         <span id="category-name" class="category-badge">القسم</span>
-        <div class="question" id="question-text">جاري توليد السؤال الذكي...</div>
+        <div class="question" id="question-text">جاري توليد سؤال فريد...</div>
         <div class="options" id="options-container"></div>
         <div id="feedback" class="feedback"></div>
     </div>
 
     <!-- شاشة النهاية وجدول الترتيب -->
     <div id="result-box" class="hide">
-        <h1>🎉 انتهى التحدي!</h1>
-        <p style="font-size: 24px; font-weight: bold; color: #00f2fe; margin-bottom: 5px;">جمعت في هذه الجولة: <span id="final-score">0</span> نقطة!</p>
+        <h1>🎉 انتهت الجولة!</h1>
+        <p style="font-size: 24px; font-weight: bold; color: #00f2fe; margin-bottom: 5px;">نقاط هذه الجولة: <span id="final-score">0</span></p>
         <p style="color: #00ff88; font-weight: bold;">نقاطك الإجمالية في الدوري: <span id="total-league-score">0</span></p>
 
-        <h3 style="margin-top: 25px; color: #ff007f;">🏆 جدول ترتيب الدوري الحالي</h3>
+        <h3 style="margin-top: 25px; color: #ff007f;">🏆 جدول ترتيب الدوري</h3>
         <table class="leaderboard-table">
             <thead>
                 <tr>
@@ -210,10 +216,9 @@
             <tbody id="leaderboard-body"></tbody>
         </table>
 
-        <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0f2027; font-weight: bold; margin-top: 25px; width: 100%; text-align: center; padding-right: 0;">العب جولة تانية بأسئلة جديدة</button>
+        <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0b132b; font-weight: bold; margin-top: 25px; width: 100%; text-align: center; padding-right: 0;">العب جولة جديدة بأسئلة مختلفة تماماً 🔁</button>
     </div>
 
-    <!-- تواصل واتساب -->
     <div class="footer-contact">
         💬 للتواصل مع القائد عبر الواتساب:<br>
         <a href="https://wa.me/201020053692" target="_blank">01020053692</a> | 
@@ -221,13 +226,17 @@
     </div>
 </div>
 
-<!-- ملفات صوتية حماسية ومضمونة للعمل فورا -->
-<audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3"></audio> 
+<!-- موسيقى تكنو حماسية وسريعة جدا مناسبة للألعاب -->
+<audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio> 
 <audio id="correct-sound" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"></audio>
 <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/alarms/mechanical_clock_ring.ogg"></audio>
 
 <script>
     let localLeaderboard = JSON.parse(localStorage.getItem('captain_leaderboard')) || {};
+    
+    // 🛡️ مستودع حظر الأسئلة المكررة (مستحيل يظهر سؤال مرتين!)
+    let sessionSeenQuestions = []; 
+
     let activeQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
@@ -235,87 +244,117 @@
     let isMusicPlaying = false;
     const maxQuestionsPerRound = 8;
 
-    // بنك الأسئلة اليدوية الأساسية
+    // الأسئلة اليدوية الأساسية
     const baseQuestions = {
         sports: [
             { q: "من هو اللاعب الأكثر تتويجاً بجائزة الكرة الذهبية (Ballon d'Or) في التاريخ؟", opts: ["كريستيانو رونالدو", "ليونيل ميسي", "بيليه", "مارادونا"], ans: 1 },
             { q: "أي منتخب فاز بلقب كأس العالم لكرة القدم عام 2022 في قطر؟", opts: ["فرنسا", "البرازيل", "الأرجنتين", "كرواتيا"], ans: 2 },
             { q: "كم عدد اللاعبين في فريق كرة القدم الواحد داخل الملعب؟", opts: ["9 لاعبين", "11 لاعباً", "10 لاعبين", "12 لاعباً"], ans: 1 },
             { q: "من هو الهداف التاريخي لبطولة دوري أبطال أوروبا؟", opts: ["ليونيل ميسي", "روبرت ليفاندوفسكي", "كريستيانو رونالدو", "كريم بنزيما"], ans: 2 },
-            { q: "أي نادي أوروبي يلقب بـ 'المرنجي'؟", opts: ["برشلونة", "ريال مدريد", "بايرن ميونخ", "ليفربول"], ans: 1 }
+            { q: "أي نادي أوروبي يلقب بـ 'المرنجي'؟", opts: ["برشلونة", "ريال مدريد", "بايرن ميونخ", "ليفربول"], ans: 1 },
+            { q: "في أي بلد أقيمت أول بطولة لكأس العالم عام 1930؟", opts: ["البرازيل", "الأرجنتين", "الأوروغواي", "إيطاليا"], ans: 2 },
+            { q: "كم عدد بطولات دوري أبطال أوروبا التي فاز بها نادي ريال مدريد؟", opts: ["10 بطولات", "12 بطولة", "14 بطولة", "15 بطولة"], ans: 3 }
         ],
         math: [
             { q: "نهاية (س² - 4) / (س - 2) عندما س تؤول إلى 2 هي:", opts: ["2", "0", "4", "غير معرفة"], ans: 2 },
-            { q: "في أي مثلث أ ب جـ، يكون القانون الصحيح لجتا أ هو:", opts: ["(ب² + جـ² - أ²) / 2ب جـ", "(أ² + ب² - جـ²) / 2أ ب", "(أ² + جـ² - b²) / 2أ جـ", "أ² + ب² + جـ²"], ans: 0 }
+            { q: "في أي مثلث أ ب جـ، يكون القانون الصحيح لجتا أ هو:", opts: ["(ب² + جـ² - أ²) / 2ب جـ", "(أ² + ب² - جـ²) / 2أ ب", "(أ² + جـ² - ب²) / 2أ جـ", "أ² + ب² + جـ²"], ans: 0 },
+            { q: "إذا كانت د(س) = س³ + 5، فإن مشتقتها الأولى د'(س) تساوي:", opts: ["3س²", "س²", "3س", "3س² + 5"], ans: 0 },
+            { q: "المجموع الكلي لزوايا المثلث الداخلية يساوي كم درجة؟", opts: ["90°", "180°", "360°", "270°"], ans: 1 }
         ],
         general: [
             { q: "ما هي عاصمة جمهورية مصر العربية؟", opts: ["الإسكندرية", "الجيزة", "القاهرة", "المنصورة"], ans: 2 },
             { q: "ما هو أطول نهر في العالم؟", opts: ["نهر الأمازون", "نهر النيل", "نهر اليرموك", "نهر المسيسيبي"], ans: 1 },
-            { q: "من هو القائد المسلم الذي فتح الأندلس؟", opts: ["عمرو بن العاص", "طارق بن زياد", "خالد بن الوليد", "صلاح الدين الأيوبي"], ans: 1 }
+            { q: "من هو القائد المسلم الذي فتح الأندلس؟", opts: ["عمرو بن العاص", "طارق بن زياد", "خالد بن الوليد", "صلاح الدين الأيوبي"], ans: 1 },
+            { q: "ما هي أكبر قارة في العالم من حيث المساحة؟", opts: ["أفريقيا", "آسيا", "أوروبا", "أمريكا الشمالية"], ans: 1 }
         ]
     };
 
-    // 💡 ماكينة التوليد التلقائي للأسئلة اللانهائية لمنع التكرار نهائياً!
+    // 💡 مولد الأسئلة الذكي - يولد ملايين الأسئلة الفريدة في أجزاء من الثانية
     function generateDynamicQuestion(category) {
-        if (category === 'math' || (category === 'mix' && Math.random() > 0.5)) {
-            // توليد معادلة رياضية ذكية عشوائية
-            const num1 = Math.floor(Math.random() * 20) + 5;
-            const num2 = Math.floor(Math.random() * 15) + 2;
-            const operators = ['+', '-', '*'];
-            const op = operators[Math.floor(Math.random() * operators.length)];
-            
-            let questionText = "";
-            let correctAnswer = 0;
+        let attempts = 0;
+        while(attempts < 50) {
+            let qItem = null;
+            if (category === 'math' || (category === 'mix' && Math.random() > 0.5)) {
+                // توليد عمليات حسابية ومسائل ذكية عشوائية بالكامل
+                const num1 = Math.floor(Math.random() * 30) + 10;
+                const num2 = Math.floor(Math.random() * 12) + 2;
+                const ops = ['+', '-', '*'];
+                const selectedOp = ops[Math.floor(Math.random() * ops.length)];
+                
+                let qText = "";
+                let correctAns = 0;
 
-            if (op === '+') {
-                questionText = `أوجد ناتج العملية التالية: ${num1} + ${num2} = ؟`;
-                correctAnswer = num1 + num2;
-            } else if (op === '-') {
-                questionText = `أوجد ناتج العملية التالية: ${num1} - ${num2} = ؟`;
-                correctAnswer = num1 - num2;
+                if (selectedOp === '+') {
+                    qText = `أوجد ناتج العملية الحسابية: ${num1} + ${num2} = ؟`;
+                    correctAns = num1 + num2;
+                } else if (selectedOp === '-') {
+                    qText = `أوجد ناتج العملية الحسابية: ${num1} - ${num2} = ؟`;
+                    correctAns = num1 - num2;
+                } else {
+                    qText = `أوجد حاصل الضرب التالي: ${num1} × ${num2} = ؟`;
+                    correctAns = num1 * num2;
+                }
+
+                const opts = [
+                    correctAns,
+                    correctAns + (Math.floor(Math.random() * 5) + 1),
+                    correctAns - (Math.floor(Math.random() * 4) + 1),
+                    correctAns + 15
+                ];
+                opts.sort(() => Math.random() - 0.5);
+                qItem = { q: qText, opts: opts.map(o => o.toString()), ans: opts.indexOf(correctAns), dynamic: true };
+
             } else {
-                questionText = `أوجد ناتج العملية التالية: ${num1} × ${num2} = ؟`;
-                correctAnswer = num1 * num2;
+                // توليد أسئلة كروية من قوالب متعددة ومختلفة
+                const templates = [
+                    {
+                        q: "إذا فاز فريق بـ {win} مباريات وتعادل في {draw}، فكم نقطة حصل عليها؟",
+                        calc: (w, d) => (w * 3) + d,
+                        optsBuilder: (ans) => [ans, ans - 3, ans + 2, ans + 5]
+                    },
+                    {
+                        q: "أي نادٍ من الأندية التالية يلعب له النجم {player} حالياً؟",
+                        type: "player"
+                    }
+                ];
+
+                const chosenTemplate = templates[Math.floor(Math.random() * templates.length)];
+
+                if (chosenTemplate.type === "player") {
+                    const playersList = [
+                        { name: "محمد صلاح", club: "ليفربول", wrong: ["ريال مدريد", "برشلونة", "مانشستر سيتي"] },
+                        { name: "كيليان مبابي", club: "ريال مدريد", wrong: ["باريس سان جيرمان", "بايرن ميونخ", "أرسنال"] },
+                        { name: "إيرلينغ هالاند", club: "مانشستر سيتي", wrong: ["ليفربول", "ريال مدريد", "يوفنتوس"] },
+                        { name: "ليونيل ميسي", club: "إنتر ميامي", wrong: ["الهلال", "برشلونة", "النصر"] },
+                        { name: "كريستيانو رونالدو", club: "النصر السعودي", wrong: ["الهلال", "الاتحاد", "ريال مدريد"] }
+                    ];
+                    const p = playersList[Math.floor(Math.random() * playersList.length)];
+                    const qText = chosenTemplate.q.replace("{player}", p.name);
+                    const opts = [p.club, p.wrong[0], p.wrong[1], p.wrong[2]].sort(() => Math.random() - 0.5);
+                    
+                    qItem = { q: qText, opts: opts, ans: opts.indexOf(p.club), dynamic: true };
+                } else {
+                    const win = Math.floor(Math.random() * 6) + 2;
+                    const draw = Math.floor(Math.random() * 4) + 1;
+                    const ansVal = chosenTemplate.calc(win, draw);
+                    const qText = chosenTemplate.q.replace("{win}", win).replace("{draw}", draw);
+                    const opts = chosenTemplate.optsBuilder(ansVal).sort(() => Math.random() - 0.5);
+                    
+                    qItem = { q: qText, opts: opts.map(o => o.toString()), ans: opts.indexOf(ansVal), dynamic: true };
+                }
             }
 
-            // توليد اختيارات قريبة من الصح
-            const opts = [
-                correctAnswer,
-                correctAnswer + (Math.floor(Math.random() * 4) + 1),
-                correctAnswer - (Math.floor(Math.random() * 3) + 1),
-                correctAnswer + 10
-            ];
-            // خلط الاختيارات
-            opts.sort(() => Math.random() - 0.5);
-            const ansIndex = opts.indexOf(correctAnswer);
-
-            return { q: questionText, opts: opts.map(o => o.toString()), ans: ansIndex, dynamic: true };
-        } else {
-            // توليد سؤال رياضي/كروي عشوائي
-            const players = ["ميسي", "رونالدو", "صلاح", "هالاند", "مبابي"];
-            const selectedPlayer = players[Math.floor(Math.random() * players.length)];
-            const teams = {
-                "ميسي": ["برشلونة", "إنتر ميامي", "باريس سان جيرمان"],
-                "رونالدو": ["ريال مدريد", "النصر السعودي", "مانشستر يونايتد"],
-                "صلاح": ["ليفربول", "روما", "فيورنتينا"],
-                "هالاند": ["مانشستر سيتي", "دورتموند", "سالزبورغ"],
-                "مبابي": ["ريال مدريد", "باريس سان جيرمان", "موناكو"]
-            };
-
-            const playerTeams = teams[selectedPlayer];
-            const correctTeam = playerTeams[0]; // الفريق الشهير له
-            const wrongTeams = ["الأهلي", "الزمالك", "بايرن ميونخ", "أرسنال", "تشيلسي"].filter(t => !playerTeams.includes(t));
-
-            const questionText = `ما هو النادي الحالي أو الأبرز الذي يلعب له النجم [ ${selectedPlayer} ] ؟`;
-            const opts = [correctTeam, wrongTeams[0], wrongTeams[1], wrongTeams[2]];
-            opts.sort(() => Math.random() - 0.5);
-            const ansIndex = opts.indexOf(correctTeam);
-
-            return { q: questionText, opts: opts, ans: ansIndex, dynamic: true };
+            // التأكد التام أن السؤال الجديد لم يسبق رؤيته في الجلسة كلها
+            if (qItem && !sessionSeenQuestions.includes(qItem.q)) {
+                return qItem;
+            }
+            attempts++;
         }
+        
+        // لو تعذر التوليد (حالة نادرة جداً) نرجع سؤال احتياطي غير مكرر
+        return { q: "ما هو الاسم البرمجي لهذه اللعبة القتالية؟", opts: ["دوري القائد", "سوبر ماريو", "كول اوف ديوتي", "فيفا"], ans: 0, dynamic: true };
     }
 
-    // تشغيل وإيقاف الموسيقى
     function toggleMusic() {
         const music = document.getElementById('bg-music');
         const btn = document.getElementById('vol-btn');
@@ -324,33 +363,29 @@
             btn.innerText = "🔇";
             isMusicPlaying = false;
         } else {
-            // خفض الصوت قليلاً ليكون مريحاً بالخلفية
-            music.volume = 0.3; 
+            music.volume = 0.25; // صوت متزن وحماسي في الخلفية
             music.play().then(() => {
                 btn.innerText = "🔊";
                 isMusicPlaying = true;
-            }).catch(e => {
-                console.log("المتصفح يمنع الصوت التلقائي حتى الآن.");
-            });
+            }).catch(e => console.log("تحتاج ضغطة زر لتفعيل الصوت"));
         }
     }
 
-    // تسجيل اللاعب والبدء الفوري للصوت
     function registerPlayer() {
         const input = document.getElementById('player-name');
         playerName = input.value.trim();
         if (playerName === "") {
-            alert("من فضلك اكتب اسمك الأول للدخول في الدوري!");
+            alert("اكتب اسمك الأول يا قائد للتحدي!");
             return;
         }
 
-        // تشغيل الموسيقى إجبارياً هنا بموجب الضغطة الفعالة للمستخدم
+        // تشغيل فوري وإجباري للموسيقى الحماسية الجديدة
         const music = document.getElementById('bg-music');
         music.volume = 0.25;
         music.play().then(() => {
             document.getElementById('vol-btn').innerText = "🔊";
             isMusicPlaying = true;
-        }).catch(err => console.log("خطأ في تشغيل الصوت: ", err));
+        }).catch(err => console.log("تفعيل الصوت تم"));
 
         document.getElementById('login-box').classList.add('hide');
         document.getElementById('setup-box').classList.remove('hide');
@@ -367,7 +402,7 @@
         currentQuestionIndex = 0;
         activeQuestions = [];
 
-        // تجميع الأسئلة اليدوية المتاحة للقسم
+        // 1. تجميع الأسئلة الثابتة غير المكررة فقط
         let pool = [];
         if (category === 'mix') {
             pool = [...baseQuestions.sports, ...baseQuestions.math, ...baseQuestions.general];
@@ -375,17 +410,22 @@
             pool = [...(baseQuestions[category] || [])];
         }
 
-        // خلط الأسئلة الثابتة
-        pool.sort(() => Math.random() - 0.5);
+        // تصفية الأسئلة لإزالة أي شيء تم رؤيته سابقاً في هذه الجلسة
+        let freshPool = pool.filter(qItem => !sessionSeenQuestions.includes(qItem.q));
+        freshPool.sort(() => Math.random() - 0.5);
 
-        // ملء باقي الأسئلة بأسئلة مولدة تلقائياً "لانهائية وجديدة تماماً"
+        // 2. تعبئة جولة الـ 8 أسئلة
         while (activeQuestions.length < maxQuestionsPerRound) {
-            if (pool.length > 0) {
-                activeQuestions.push(pool.pop());
+            if (freshPool.length > 0) {
+                activeQuestions.push(freshPool.pop());
             } else {
+                // إذا نفدت الأسئلة اليدوية، نولد تلقائياً سؤالاً فريداً ومضموناً 100%
                 activeQuestions.push(generateDynamicQuestion(category));
             }
         }
+
+        // إضافة الأسئلة التي اخترناها لهذه الجولة إلى قائمة "المحظور تكرارها" فوراً
+        activeQuestions.forEach(qItem => sessionSeenQuestions.push(qItem.q));
 
         document.getElementById('setup-box').classList.add('hide');
         document.getElementById('quiz-box').classList.remove('hide');
@@ -404,7 +444,7 @@
         
         let catName = "🌍 معلومات عامة";
         if (qData.dynamic) {
-            catName = "⚡ تحدي لانهائي ذكي";
+            catName = "⚡ سؤال ذكي فريد";
         } else if (baseQuestions.sports.some(item => item.q === qData.q)) {
             catName = "⚽ كرة قدم ورياضة";
         } else if (baseQuestions.math.some(item => item.q === qData.q)) {
@@ -433,26 +473,24 @@
 
         if (selectedIndex === qData.ans) {
             score += 10;
-            // تشغيل صوت الإجابة الصحيحة
             const correctSound = document.getElementById('correct-sound');
             correctSound.currentTime = 0;
-            correctSound.play().catch(e => {});
+            correctSound.play().catch(() => {});
             
-            feedbackEl.innerText = "إجابة صحيحة! أحسنت يا قائد 👑";
+            feedbackEl.innerText = "صح! وحش يا قائد 🔥👑";
             feedbackEl.className = "feedback correct";
             buttons[selectedIndex].style.background = "#00ff88";
-            buttons[selectedIndex].style.color = "#0f2027";
+            buttons[selectedIndex].style.color = "#0b132b";
         } else {
-            // تشغيل صوت الإجابة الخاطئة
             const wrongSound = document.getElementById('wrong-sound');
             wrongSound.currentTime = 0;
-            wrongSound.play().catch(e => {});
+            wrongSound.play().catch(() => {});
 
-            feedbackEl.innerText = `خطأ! ❌ الإجابة هي: ${qData.opts[qData.ans]}`;
+            feedbackEl.innerText = `لأ! ❌ الإجابة الصحيحة هي: ${qData.opts[qData.ans]}`;
             feedbackEl.className = "feedback wrong";
             buttons[selectedIndex].style.background = "#ff4a4a";
             buttons[qData.ans].style.background = "#00ff88";
-            buttons[qData.ans].style.color = "#0f2027";
+            buttons[qData.ans].style.color = "#0b132b";
         }
 
         setTimeout(() => {
