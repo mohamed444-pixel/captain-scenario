@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تحدي عباقرة الرياضيات - الصف الثاني الثانوي</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            color: #fff;
+            text-align: center;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .quiz-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 500px;
+            width: 100%;
+        }
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+            color: #00f2fe;
+        }
+        .question {
+            font-size: 20px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid transparent;
+            padding: 12px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .btn:hover {
+            background: #00f2fe;
+            color: #1e3c72;
+            font-weight: bold;
+            transform: translateY(-2px);
+        }
+        .score-section {
+            font-size: 22px;
+            font-weight: bold;
+        }
+        .hide {
+            display: none;
+        }
+        .feedback {
+            margin-top: 15px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .correct { color: #00ff88; }
+        .wrong { color: #ff4a4a; }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <div id="quiz-box">
+        <h1 id="question-number">السؤال 1 من 3</h1>
+        <div class="question" id="question-text">جاري تحميل السؤال...</div>
+        <div class="options" id="options-container">
+            <!-- الأزرار هتظهر هنا بالـ JavaScript -->
+        </div>
+        <div id="feedback" class="feedback"></div>
+    </div>
+
+    <div id="result-box" class="hide">
+        <h1>🎉 انتهى التحدي!</h1>
+        <p class="score-section">نتيجتك هي: <span id="final-score">0</span> من <span id="total-questions">3</span></p>
+        <button class="btn" onclick="restartQuiz()" style="background: #00f2fe; color: #1e3c72; font-weight: bold; margin-top: 20px; width: 100%;">العب مجدداً</button>
+    </div>
+</div>
+
+<script>
+    // أسئلة الرياضة للصف الثاني الثانوي (جبر وتفاضل وحساب مثلثات)
+    const quizData = [
+        {
+            question: "إذا كانت د(س) = س² + 3 ، فإن د(2) تساوي:",
+            options: ["5", "7", "9", "4"],
+            correct: 1 // الاختيار الثاني (7) لأن 2² + 3 = 4 + 3 = 7
+        },
+        {
+            question: "نهاية (س² - 4) / (س - 2) عندما س تؤول إلى 2 هي:",
+            options: ["2", "0", "4", "غير معرفة"],
+            correct: 2 // الاختيار الثالث (4) بالتحليل واختصار القوس الصفرى
+        },
+        {
+            question: "في أي مثلث أ ب جـ، يكون جتا أ مساوياً لـ:",
+            options: [
+                "(ب² + جـ² - أ²) / 2ب جـ",
+                "(أ² + ب² - جـ²) / 2أ ب",
+                "(أ² + جـ² - ب²) / 2أ جـ",
+                "أ² + ب² + جـ²"
+            ],
+            correct: 0 // القانون الأول لحساب المثلثات
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionNumberEl = document.getElementById('question-number');
+    const questionTextEl = document.getElementById('question-text');
+    const optionsContainer = document.getElementById('options-container');
+    const feedbackEl = document.getElementById('feedback');
+    const quizBox = document.getElementById('quiz-box');
+    const resultBox = document.getElementById('result-box');
+    const finalScoreEl = document.getElementById('final-score');
+    const totalQuestionsEl = document.getElementById('total-questions');
+
+    function startQuiz() {
+        currentQuestionIndex = 0;
+        score = 0;
+        quizBox.classList.remove('hide');
+        resultBox.classList.add('hide');
+        feedbackEl.innerText = '';
+        showQuestion();
+    }
+
+    function showQuestion() {
+        feedbackEl.innerText = '';
+        const currentQuestion = quizData[currentQuestionIndex];
+        questionNumberEl.innerText = `السؤال ${currentQuestionIndex + 1} من ${quizData.length}`;
+        questionTextEl.innerText = currentQuestion.question;
+        optionsContainer.innerHTML = '';
+
+        currentQuestion.options.forEach((option, index) => {
+            const button = document.createElement('button');
+            button.innerText = option;
+            button.classList.add('btn');
+            button.addEventListener('click', () => selectAnswer(index));
+            optionsContainer.appendChild(button);
+        });
+    }
+
+    function selectAnswer(selectedIndex) {
+        const currentQuestion = quizData[currentQuestionIndex];
+        const buttons = optionsContainer.querySelectorAll('.btn');
+        
+        // تعطيل الأزرار بعد الاختيار لمنع الضغط المتكرر
+        buttons.forEach(btn => btn.disabled = true);
+
+        if (selectedIndex === currentQuestion.correct) {
+            score++;
+            feedbackEl.innerText = "إجابة صحيحة! 🎉";
+            feedbackEl.className = "feedback correct";
+            buttons[selectedIndex].style.background = "#00ff88";
+            buttons[selectedIndex].style.color = "#1e3c72";
+        } else {
+            feedbackEl.innerText = `إجابة خاطئة! ❌ الإجابة الصحيحة هي: ${currentQuestion.options[currentQuestion.correct]}`;
+            feedbackEl.className = "feedback wrong";
+            buttons[selectedIndex].style.background = "#ff4a4a";
+            buttons[currentQuestion.correct].style.background = "#00ff88";
+            buttons[currentQuestion.correct].style.color = "#1e3c72";
+        }
+
+        setTimeout(() => {
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                showQuestion();
+            } else {
+                showResult();
+            }
+        }, 2000); // الانتقال للسؤال التالي بعد ثانيتين
+    }
+
+    function showResult() {
+        quizBox.classList.add('hide');
+        resultBox.classList.remove('hide');
+        finalScoreEl.innerText = score;
+        totalQuestionsEl.innerText = quizData.length;
+    }
+
+    function restartQuiz() {
+        startQuiz();
+    }
+
+    // تشغيل اللعبة فوراً عند تحميل الصفحة
+    startQuiz();
+</script>
+
+</body>
+</html>
