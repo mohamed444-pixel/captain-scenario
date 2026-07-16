@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
@@ -14,6 +13,7 @@
             margin: 0;
             padding: 20px;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
@@ -27,6 +27,7 @@
             border: 1px solid rgba(255, 255, 255, 0.1);
             max-width: 600px;
             width: 100%;
+            box-sizing: border-box;
         }
         h1 {
             font-size: 26px;
@@ -89,17 +90,34 @@
         .wrong { color: #ff4a4a; text-shadow: 0 0 10px rgba(255,74,74,0.5); }
         .hide { display: none; }
         
-        /* شاشة اختيار القسم */
         .category-select-btn {
             background: linear-gradient(45deg, #00f2fe, #4facfe);
             color: #0f2027;
             font-weight: bold;
-            margin: 10px 0;
+            margin: 8px 0;
             width: 100%;
         }
         .category-select-btn:hover {
             background: white;
             color: #0f2027;
+        }
+
+        /* فوتر التواصل */
+        .footer-contact {
+            margin-top: 25px;
+            font-size: 14px;
+            color: #aaa;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+        }
+        .footer-contact a {
+            color: #00ff88;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 0 5px;
+        }
+        .footer-contact a:hover {
+            text-decoration: underline;
         }
     </style>
 </head>
@@ -109,12 +127,13 @@
     <!-- شاشة اختيار التصنيف -->
     <div id="setup-box">
         <h1>🎮 اختر قسم التحدي</h1>
-        <p style="color: #ccc; margin-bottom: 30px;">اختر المجال الذي تريد اختبار معلوماتك فيه من بين آلاف الأسئلة المتنوعة:</p>
+        <p style="color: #ccc; margin-bottom: 20px;">اختر المجال الذي تريد اختبار معلوماتك فيه بدون تكرار الأسئلة:</p>
         <div class="options">
+            <button class="btn category-select-btn" onclick="startQuiz('sports')">⚽ كرة قدم ورياضة (جديد)</button>
             <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات (جبر، تفاضل، مثلثات)</button>
-            <button class="btn category-select-btn" onclick="startQuiz('science')">🔬 علوم وتكنولوجيا (فيزياء، كيمياء، حاسب)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('science')">🔬 علوم وتكنولوجيا</button>
             <button class="btn category-select-btn" onclick="startQuiz('general')">🌍 معلومات عامة وجغرافيا</button>
-            <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام (تحدي عشوائي)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام</button>
         </div>
     </div>
 
@@ -137,11 +156,28 @@
         <p style="font-size: 24px; font-weight: bold; color: #00f2fe;">لقد جمعت: <span id="final-score">0</span> نقطة!</p>
         <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0f2027; font-weight: bold; margin-top: 20px; width: 100%; text-align: center; padding-right: 0;">العب مجدداً في قسم آخر</button>
     </div>
+
+    <!-- تواصل واتساب -->
+    <div class="footer-contact">
+        💬 لتعديل أو اقتراح أسئلة، تواصل مع القائد عبر الواتساب:<br>
+        <a href="https://wa.me/201020053692" target="_blank">01020053692</a> | 
+        <a href="https://wa.me/201011413655" target="_blank">01011413655</a>
+    </div>
 </div>
 
 <script>
     // بنك الأسئلة الشامل (مقسم حسب الفئات)
     const questionsBank = {
+        sports: [
+            { q: "من هو اللاعب الأكثر تتويجاً بجائزة الكرة الذهبية (Ballon d'Or) في التاريخ؟", opts: ["كريستيانو رونالدو", "ليونيل ميسي", "بيليه", "مارادونا"], ans: 1 },
+            { q: "أي منتخب فاز بلقب كأس العالم لكرة القدم عام 2022 في قطر؟", opts: ["فرنسا", "البرازيل", "الأرجنتين", "كرواتيا"], ans: 2 },
+            { q: "كم عدد اللاعبين في فريق كرة القدم الواحد داخل الملعب؟", opts: ["9 لاعبين", "11 لاعباً", "10 لاعبين", "12 لاعباً"], ans: 1 },
+            { q: "من هو الهداف التاريخي لبطولة دوري أبطال أوروبا؟", opts: ["ليونيل ميسي", "روبرت ليفاندوفسكي", "كريستيانو رونالدو", "كريم بنزيما"], ans: 2 },
+            { q: "أي نادي أوروبي يلقب بـ 'المرنجي'؟", opts: ["برشلونة", "ريال مدريد", "بايرن ميونخ", "ليفربول"], ans: 1 },
+            { q: "كم مدة الشوط الواحد الأصلي في مباراة كرة القدم بدون الوقت الضائع؟", opts: ["30 دقيقة", "40 دقيقة", "45 دقيقة", "60 دقيقة"], ans: 2 },
+            { q: "من هو اللاعب المصري الملقب بـ 'الملك المصري' في الدوري الإنجليزي؟", opts: ["مصطفى محمد", "محمد صلاح", "عمر مرموش", "تريزيجيه"], ans: 1 },
+            { q: "في أي دولة أقيمت أول بطولة كأس عالم لكرة القدم عام 1930؟", opts: ["الأوروغواي", "البرازيل", "إيطاليا", "فرنسا"], ans: 0 }
+        ],
         math: [
             { q: "إذا كانت د(س) = س² + 3 ، فإن د(2) تساوي:", opts: ["5", "7", "9", "4"], ans: 1 },
             { q: "نهاية (س² - 4) / (س - 2) عندما س تؤول إلى 2 هي:", opts: ["2", "0", "4", "غير معرفة"], ans: 2 },
@@ -168,7 +204,7 @@
     let activeQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
-    const maxQuestionsPerRound = 10; // عدد الأسئلة في الجولة الواحدة
+    const maxQuestionsPerRound = 8; // عدد الأسئلة في الجولة الواحدة
 
     function showSetup() {
         document.getElementById('setup-box').classList.remove('hide');
@@ -176,23 +212,52 @@
         document.getElementById('result-box').classList.add('hide');
     }
 
+    // دالة لاسترجاع الأسئلة المجاوبة مسبقاً من ذاكرة المتصفح
+    function getAnsweredQuestions() {
+        const answered = localStorage.getItem('answered_questions');
+        return answered ? JSON.parse(answered) : [];
+    }
+
+    // دالة لحفظ سؤال مجاب في الذاكرة
+    function saveAnsweredQuestion(questionText) {
+        const answered = getAnsweredQuestions();
+        if (!answered.includes(questionText)) {
+            answered.push(questionText);
+            localStorage.setItem('answered_questions', JSON.stringify(answered));
+        }
+    }
+
+    // تفريغ الذاكرة لإعادة تدوير الأسئلة لو خلصت كلها
+    function clearAnsweredHistory() {
+        localStorage.removeItem('answered_questions');
+    }
+
     function startQuiz(category) {
         score = 0;
         currentQuestionIndex = 0;
         activeQuestions = [];
 
-        // تحضير الأسئلة بناءً على الاختيار
+        // 1. تجميع الأسئلة حسب الاختيار
+        let pool = [];
         if (category === 'mix') {
-            activeQuestions = [...questionsBank.math, ...questionsBank.science, ...questionsBank.general];
+            pool = [...questionsBank.sports, ...questionsBank.math, ...questionsBank.science, ...questionsBank.general];
         } else {
-            activeQuestions = [...questionsBank[category]];
+            pool = [...questionsBank[category]];
         }
 
-        // خلط الأسئلة عشوائياً عشان اللعبة تتغير في كل مرة تلعبها
-        activeQuestions.sort(() => Math.random() - 0.5);
+        // 2. فلترة الأسئلة لاستبعاد المجاوبة مسبقاً (منع التكرار)
+        const answeredList = getAnsweredQuestions();
+        let unpredictedPool = pool.filter(qItem => !answeredList.includes(qItem.q));
 
-        // تحديد عدد الأسئلة الأقصى للجولة
-        activeQuestions = activeQuestions.slice(0, Math.min(maxQuestionsPerRound, activeQuestions.length));
+        // لو كل الأسئلة في هذا القسم تمت الإجابة عليها، صَفّر الذاكرة وابدأ من جديد
+        if (unpredictedPool.length === 0) {
+            clearAnsweredHistory();
+            unpredictedPool = pool;
+        }
+
+        // 3. خلط الأسئلة المتبقية عشوائياً واختيار العدد المطلوب
+        unpredictedPool.sort(() => Math.random() - 0.5);
+        activeQuestions = unpredictedPool.slice(0, Math.min(maxQuestionsPerRound, unpredictedPool.length));
 
         document.getElementById('setup-box').classList.add('hide');
         document.getElementById('quiz-box').classList.remove('hide');
@@ -206,14 +271,14 @@
         
         const qData = activeQuestions[currentQuestionIndex];
         
-        // تحديث العداد والدرجة
         document.getElementById('question-counter').innerText = `السؤال: ${currentQuestionIndex + 1} / ${activeQuestions.length}`;
         document.getElementById('score-counter').innerText = `النقاط: ${score}`;
         
-        // تحديد نوع القسم لعرض البادج المناسب
+        // عرض اسم القسم المناسب بالسمايل بتاعه
         let catName = "عام";
-        if (questionsBank.math.includes(qData)) catName = "📐 رياضيات";
-        else if (questionsBank.science.includes(qData)) catName = "🔬 علوم وتكنولوجيا";
+        if (questionsBank.sports.some(item => item.q === qData.q)) catName = "⚽ كرة قدم ورياضة";
+        else if (questionsBank.math.some(item => item.q === qData.q)) catName = "📐 رياضيات";
+        else if (questionsBank.science.some(item => item.q === qData.q)) catName = "🔬 علوم وتكنولوجيا";
         else catName = "🌍 معلومات عامة";
         document.getElementById('category-name').innerText = catName;
 
@@ -236,9 +301,12 @@
         
         buttons.forEach(btn => btn.disabled = true);
 
+        // حفظ السؤال في ذاكرة "المجاوب عليه" عشان ما يتكررش تاني أبداً
+        saveAnsweredQuestion(qData.q);
+
         if (selectedIndex === qData.ans) {
-            score += 10; // 10 نقاط لكل إجابة صحيحة
-            feedbackEl.innerText = "إجابة صحيحة! أحسنت يا بطل 🎉";
+            score += 10;
+            feedbackEl.innerText = "إجابة صحيحة! أحسنت يا قائد 👑";
             feedbackEl.className = "feedback correct";
             buttons[selectedIndex].style.background = "#00ff88";
             buttons[selectedIndex].style.color = "#0f2027";
