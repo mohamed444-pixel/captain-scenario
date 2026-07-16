@@ -1,13 +1,14 @@
+
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تحدي عباقرة الرياضيات - الصف الثاني الثانوي</title>
+    <title>سيناريو القائد - بنك الأسئلة الشامل</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
             color: #fff;
             text-align: center;
             margin: 0;
@@ -18,135 +19,208 @@
             min-height: 100vh;
         }
         .quiz-container {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(15px);
             padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            max-width: 500px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            max-width: 600px;
             width: 100%;
         }
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 26px;
             color: #00f2fe;
+            margin-bottom: 10px;
         }
-        .question {
-            font-size: 20px;
+        .category-badge {
+            background: #ff007f;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: inline-block;
             margin-bottom: 20px;
             font-weight: bold;
+        }
+        .question {
+            font-size: 22px;
+            margin-bottom: 25px;
+            font-weight: bold;
+            line-height: 1.5;
         }
         .options {
             display: flex;
             flex-direction: column;
-            gap: 12px;
+            gap: 15px;
         }
         .btn {
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.1);
             color: white;
-            border: 2px solid transparent;
-            padding: 12px;
-            font-size: 16px;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-align: right;
+            padding-right: 25px;
         }
         .btn:hover {
             background: #00f2fe;
-            color: #1e3c72;
+            color: #0f2027;
             font-weight: bold;
-            transform: translateY(-2px);
+            transform: scale(1.02);
         }
-        .score-section {
-            font-size: 22px;
-            font-weight: bold;
-        }
-        .hide {
-            display: none;
+        .score-board {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            font-size: 16px;
+            color: #ccc;
         }
         .feedback {
-            margin-top: 15px;
-            font-size: 18px;
+            margin-top: 20px;
+            font-size: 20px;
             font-weight: bold;
+            min-height: 30px;
         }
-        .correct { color: #00ff88; }
-        .wrong { color: #ff4a4a; }
+        .correct { color: #00ff88; text-shadow: 0 0 10px rgba(0,255,136,0.5); }
+        .wrong { color: #ff4a4a; text-shadow: 0 0 10px rgba(255,74,74,0.5); }
+        .hide { display: none; }
+        
+        /* شاشة اختيار القسم */
+        .category-select-btn {
+            background: linear-gradient(45deg, #00f2fe, #4facfe);
+            color: #0f2027;
+            font-weight: bold;
+            margin: 10px 0;
+            width: 100%;
+        }
+        .category-select-btn:hover {
+            background: white;
+            color: #0f2027;
+        }
     </style>
 </head>
 <body>
 
 <div class="quiz-container">
-    <div id="quiz-box">
-        <h1 id="question-number">السؤال 1 من 3</h1>
-        <div class="question" id="question-text">جاري تحميل السؤال...</div>
-        <div class="options" id="options-container">
-            <!-- الأزرار هتظهر هنا بالـ JavaScript -->
+    <!-- شاشة اختيار التصنيف -->
+    <div id="setup-box">
+        <h1>🎮 اختر قسم التحدي</h1>
+        <p style="color: #ccc; margin-bottom: 30px;">اختر المجال الذي تريد اختبار معلوماتك فيه من بين آلاف الأسئلة المتنوعة:</p>
+        <div class="options">
+            <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات (جبر، تفاضل، مثلثات)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('science')">🔬 علوم وتكنولوجيا (فيزياء، كيمياء، حاسب)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('general')">🌍 معلومات عامة وجغرافيا</button>
+            <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام (تحدي عشوائي)</button>
         </div>
+    </div>
+
+    <!-- شاشة اللعب -->
+    <div id="quiz-box" class="hide">
+        <div class="score-board">
+            <span id="question-counter">السؤال: 1 / 10</span>
+            <span id="score-counter">النقاط: 0</span>
+        </div>
+        <span id="category-name" class="category-badge">القسم</span>
+        <div class="question" id="question-text">جاري تحميل السؤال...</div>
+        <div class="options" id="options-container"></div>
         <div id="feedback" class="feedback"></div>
     </div>
 
+    <!-- شاشة النهاية -->
     <div id="result-box" class="hide">
-        <h1>🎉 انتهى التحدي!</h1>
-        <p class="score-section">نتيجتك هي: <span id="final-score">0</span> من <span id="total-questions">3</span></p>
-        <button class="btn" onclick="restartQuiz()" style="background: #00f2fe; color: #1e3c72; font-weight: bold; margin-top: 20px; width: 100%;">العب مجدداً</button>
+        <h1>🎉 انتهى التحدي يا قائد!</h1>
+        <p style="font-size: 22px;">أداؤك كان رائعاً اليوم.</p>
+        <p style="font-size: 24px; font-weight: bold; color: #00f2fe;">لقد جمعت: <span id="final-score">0</span> نقطة!</p>
+        <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0f2027; font-weight: bold; margin-top: 20px; width: 100%; text-align: center; padding-right: 0;">العب مجدداً في قسم آخر</button>
     </div>
 </div>
 
 <script>
-    // أسئلة الرياضة للصف الثاني الثانوي (جبر وتفاضل وحساب مثلثات)
-    const quizData = [
-        {
-            question: "إذا كانت د(س) = س² + 3 ، فإن د(2) تساوي:",
-            options: ["5", "7", "9", "4"],
-            correct: 1 // الاختيار الثاني (7) لأن 2² + 3 = 4 + 3 = 7
-        },
-        {
-            question: "نهاية (س² - 4) / (س - 2) عندما س تؤول إلى 2 هي:",
-            options: ["2", "0", "4", "غير معرفة"],
-            correct: 2 // الاختيار الثالث (4) بالتحليل واختصار القوس الصفرى
-        },
-        {
-            question: "في أي مثلث أ ب جـ، يكون جتا أ مساوياً لـ:",
-            options: [
-                "(ب² + جـ² - أ²) / 2ب جـ",
-                "(أ² + ب² - جـ²) / 2أ ب",
-                "(أ² + جـ² - ب²) / 2أ جـ",
-                "أ² + ب² + جـ²"
-            ],
-            correct: 0 // القانون الأول لحساب المثلثات
-        }
-    ];
+    // بنك الأسئلة الشامل (مقسم حسب الفئات)
+    const questionsBank = {
+        math: [
+            { q: "إذا كانت د(س) = س² + 3 ، فإن د(2) تساوي:", opts: ["5", "7", "9", "4"], ans: 1 },
+            { q: "نهاية (س² - 4) / (س - 2) عندما س تؤول إلى 2 هي:", opts: ["2", "0", "4", "غير معرفة"], ans: 2 },
+            { q: "في أي مثلث أ ب جـ، يكون القانون الصحيح لجتا أ هو:", opts: ["(ب² + جـ² - أ²) / 2ب جـ", "(أ² + ب² - جـ²) / 2أ ب", "(أ² + جـ² - ب²) / 2أ جـ", "أ² + ب² + جـ²"], ans: 0 },
+            { q: "إذا كانت د(س) = جتا(س)، فإن المشتقة الأولى د'(س) هي:", opts: ["جا(س)", "-جا(س)", "قا²(س)", "-جتا(س)"], ans: 1 },
+            { q: "المتتابعة الحسابية التي حدها الأول 3 وأساسها 5، يكون حدها الثالث هو:", opts: ["8", "13", "18", "23"], ans: 1 }
+        ],
+        science: [
+            { q: "ما هي وحدة قياس القوة في النظام الدولي للوحدات؟", opts: ["الجول", "الوات", "النيوتن", "الباسكال"], ans: 2 },
+            { q: "أي من اللغات التالية تعتبر لغة برمجة منخفضة المستوى (Low-Level)؟", opts: ["Python", "C++", "Assembly", "Java"], ans: 2 },
+            { q: "ما هو العنصر الكيميائي الأكثر وفرة في الكون؟", opts: ["الأكسجين", "الهيدروجين", "النيتروجين", "الكربون"], ans: 1 },
+            { q: "ما هو البروتوكول المسؤول عن نقل صفحات الويب بشكل آمن؟", opts: ["FTP", "HTTP", "HTTPS", "SMTP"], ans: 2 },
+            { q: "ما هي ذاكرة التخزين المؤقتة في الكمبيوتر التي تفقد بياناتها عند انقطاع الكهرباء؟", opts: ["ROM", "RAM", "Hard Disk", "SSD"], ans: 1 }
+        ],
+        general: [
+            { q: "ما هي عاصمة جمهورية مصر العربية؟", opts: ["الإسكندرية", "الجيزة", "القاهرة", "المنصورة"], ans: 2 },
+            { q: "ما هو أطول نهر في العالم؟", opts: ["نهر الأمازون", "نهر النيل", "نهر اليرموك", "نهر المسيسيبي"], ans: 1 },
+            { q: "من هو القائد المسلم الذي فتح الأندلس؟", opts: ["عمرو بن العاص", "طارق بن زياد", "خالد بن الوليد", "صلاح الدين الأيوبي"], ans: 1 },
+            { q: "كم عدد قارات العالم؟", opts: ["5", "6", "7", "8"], ans: 2 },
+            { q: "ما هو أكبر محيط في العالم من حيث المساحة؟", opts: ["المحيط الأطلنطي", "المحيط الهندي", "المحيط الهادي", "المحيط المتجمد الشمالي"], ans: 2 }
+        ]
+    };
 
+    let activeQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
+    const maxQuestionsPerRound = 10; // عدد الأسئلة في الجولة الواحدة
 
-    const questionNumberEl = document.getElementById('question-number');
-    const questionTextEl = document.getElementById('question-text');
-    const optionsContainer = document.getElementById('options-container');
-    const feedbackEl = document.getElementById('feedback');
-    const quizBox = document.getElementById('quiz-box');
-    const resultBox = document.getElementById('result-box');
-    const finalScoreEl = document.getElementById('final-score');
-    const totalQuestionsEl = document.getElementById('total-questions');
+    function showSetup() {
+        document.getElementById('setup-box').classList.remove('hide');
+        document.getElementById('quiz-box').classList.add('hide');
+        document.getElementById('result-box').classList.add('hide');
+    }
 
-    function startQuiz() {
-        currentQuestionIndex = 0;
+    function startQuiz(category) {
         score = 0;
-        quizBox.classList.remove('hide');
-        resultBox.classList.add('hide');
-        feedbackEl.innerText = '';
+        currentQuestionIndex = 0;
+        activeQuestions = [];
+
+        // تحضير الأسئلة بناءً على الاختيار
+        if (category === 'mix') {
+            activeQuestions = [...questionsBank.math, ...questionsBank.science, ...questionsBank.general];
+        } else {
+            activeQuestions = [...questionsBank[category]];
+        }
+
+        // خلط الأسئلة عشوائياً عشان اللعبة تتغير في كل مرة تلعبها
+        activeQuestions.sort(() => Math.random() - 0.5);
+
+        // تحديد عدد الأسئلة الأقصى للجولة
+        activeQuestions = activeQuestions.slice(0, Math.min(maxQuestionsPerRound, activeQuestions.length));
+
+        document.getElementById('setup-box').classList.add('hide');
+        document.getElementById('quiz-box').classList.remove('hide');
         showQuestion();
     }
 
     function showQuestion() {
+        const feedbackEl = document.getElementById('feedback');
+        const optionsContainer = document.getElementById('options-container');
         feedbackEl.innerText = '';
-        const currentQuestion = quizData[currentQuestionIndex];
-        questionNumberEl.innerText = `السؤال ${currentQuestionIndex + 1} من ${quizData.length}`;
-        questionTextEl.innerText = currentQuestion.question;
+        
+        const qData = activeQuestions[currentQuestionIndex];
+        
+        // تحديث العداد والدرجة
+        document.getElementById('question-counter').innerText = `السؤال: ${currentQuestionIndex + 1} / ${activeQuestions.length}`;
+        document.getElementById('score-counter').innerText = `النقاط: ${score}`;
+        
+        // تحديد نوع القسم لعرض البادج المناسب
+        let catName = "عام";
+        if (questionsBank.math.includes(qData)) catName = "📐 رياضيات";
+        else if (questionsBank.science.includes(qData)) catName = "🔬 علوم وتكنولوجيا";
+        else catName = "🌍 معلومات عامة";
+        document.getElementById('category-name').innerText = catName;
+
+        document.getElementById('question-text').innerText = qData.q;
         optionsContainer.innerHTML = '';
 
-        currentQuestion.options.forEach((option, index) => {
+        qData.opts.forEach((option, index) => {
             const button = document.createElement('button');
             button.innerText = option;
             button.classList.add('btn');
@@ -156,49 +230,41 @@
     }
 
     function selectAnswer(selectedIndex) {
-        const currentQuestion = quizData[currentQuestionIndex];
-        const buttons = optionsContainer.querySelectorAll('.btn');
+        const qData = activeQuestions[currentQuestionIndex];
+        const buttons = document.getElementById('options-container').querySelectorAll('.btn');
+        const feedbackEl = document.getElementById('feedback');
         
-        // تعطيل الأزرار بعد الاختيار لمنع الضغط المتكرر
         buttons.forEach(btn => btn.disabled = true);
 
-        if (selectedIndex === currentQuestion.correct) {
-            score++;
-            feedbackEl.innerText = "إجابة صحيحة! 🎉";
+        if (selectedIndex === qData.ans) {
+            score += 10; // 10 نقاط لكل إجابة صحيحة
+            feedbackEl.innerText = "إجابة صحيحة! أحسنت يا بطل 🎉";
             feedbackEl.className = "feedback correct";
             buttons[selectedIndex].style.background = "#00ff88";
-            buttons[selectedIndex].style.color = "#1e3c72";
+            buttons[selectedIndex].style.color = "#0f2027";
         } else {
-            feedbackEl.innerText = `إجابة خاطئة! ❌ الإجابة الصحيحة هي: ${currentQuestion.options[currentQuestion.correct]}`;
+            feedbackEl.innerText = `خطأ! ❌ الإجابة هي: ${qData.opts[qData.ans]}`;
             feedbackEl.className = "feedback wrong";
             buttons[selectedIndex].style.background = "#ff4a4a";
-            buttons[currentQuestion.correct].style.background = "#00ff88";
-            buttons[currentQuestion.correct].style.color = "#1e3c72";
+            buttons[qData.ans].style.background = "#00ff88";
+            buttons[qData.ans].style.color = "#0f2027";
         }
 
         setTimeout(() => {
             currentQuestionIndex++;
-            if (currentQuestionIndex < quizData.length) {
+            if (currentQuestionIndex < activeQuestions.length) {
                 showQuestion();
             } else {
                 showResult();
             }
-        }, 2000); // الانتقال للسؤال التالي بعد ثانيتين
+        }, 2000);
     }
 
     function showResult() {
-        quizBox.classList.add('hide');
-        resultBox.classList.remove('hide');
-        finalScoreEl.innerText = score;
-        totalQuestionsEl.innerText = quizData.length;
+        document.getElementById('quiz-box').classList.add('hide');
+        document.getElementById('result-box').classList.remove('hide');
+        document.getElementById('final-score').innerText = score;
     }
-
-    function restartQuiz() {
-        startQuiz();
-    }
-
-    // تشغيل اللعبة فوراً عند تحميل الصفحة
-    startQuiz();
 </script>
 
 </body>
