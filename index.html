@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>دوري سيناريو القائد - النسخة الحماسية اللانهائية</title>
+    <title>دوري Mo.A اللانهائي</title>
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -164,25 +164,25 @@
 <body>
 
 <div class="quiz-container">
-    <!-- زر الصوت المطور -->
+    <!-- زر الصوت -->
     <button class="volume-control" id="vol-btn" onclick="toggleMusic()">🔇</button>
 
     <!-- شاشة الاسم -->
     <div id="login-box">
-        <h1>🏆 دوري القائد اللانهائي</h1>
-        <p style="color: #ccc; margin-bottom: 25px;">اكتب اسمك وادخل جولة بأسئلة مستحيل تتكرر وموسيقى حماسية جديدة!</p>
+        <h1>🏆 دوري Mo.A اللانهائي</h1>
+        <p style="color: #ccc; margin-bottom: 25px;">اكتب اسمك وادخل جولة بأسئلة حماسية وتحدي مباشر مع كل الأصحاب!</p>
         <input type="text" id="player-name" class="input-name" placeholder="اكتب اسمك هنا...">
         <button class="btn" onclick="registerPlayer()" style="background: #00f2fe; color: #0b132b; font-weight: bold; width: 100%; text-align: center; padding-right: 0;">دخول وتفعيل الصوت 🔊</button>
     </div>
 
     <!-- شاشة اختيار القسم -->
     <div id="setup-box" class="hide">
-        <h1>🎮 اختر قسم التحدي اللانهائي</h1>
+        <h1>🎮 اختر قسم التحدي</h1>
         <div class="options">
-            <button class="btn category-select-btn" onclick="startQuiz('sports')">⚽ كرة قدم ورياضة (بدون تكرار)</button>
-            <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات ذكية (لانهائي ممتع)</button>
+            <button class="btn category-select-btn" onclick="startQuiz('sports')">⚽ كرة قدم ورياضة</button>
+            <button class="btn category-select-btn" onclick="startQuiz('math')">📐 رياضيات ذكية</button>
             <button class="btn category-select-btn" onclick="startQuiz('general')">🌍 معلومات عامة وجغرافيا</button>
-            <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام بالتناوب</button>
+            <button class="btn category-select-btn" onclick="startQuiz('mix')">🔀 خلطة كل الأقسام</button>
         </div>
     </div>
 
@@ -198,13 +198,13 @@
         <div id="feedback" class="feedback"></div>
     </div>
 
-    <!-- شاشة النهاية وجدول الترتيب -->
+    <!-- شاشة النهاية وجدول الترتيب المباشر -->
     <div id="result-box" class="hide">
         <h1>🎉 انتهت الجولة!</h1>
         <p style="font-size: 24px; font-weight: bold; color: #00f2fe; margin-bottom: 5px;">نقاط هذه الجولة: <span id="final-score">0</span></p>
         <p style="color: #00ff88; font-weight: bold;">نقاطك الإجمالية في الدوري: <span id="total-league-score">0</span></p>
 
-        <h3 style="margin-top: 25px; color: #ff007f;">🏆 جدول ترتيب الدوري</h3>
+        <h3 style="margin-top: 25px; color: #ff007f;">🏆 جدول الترتيب العام المباشر</h3>
         <table class="leaderboard-table">
             <thead>
                 <tr>
@@ -216,7 +216,7 @@
             <tbody id="leaderboard-body"></tbody>
         </table>
 
-        <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0b132b; font-weight: bold; margin-top: 25px; width: 100%; text-align: center; padding-right: 0;">العب جولة جديدة بأسئلة مختلفة تماماً 🔁</button>
+        <button class="btn" onclick="showSetup()" style="background: #00ff88; color: #0b132b; font-weight: bold; margin-top: 25px; width: 100%; text-align: center; padding-right: 0;">العب جولة جديدة 🔁</button>
     </div>
 
     <div class="footer-contact">
@@ -226,17 +226,43 @@
     </div>
 </div>
 
-<!-- موسيقى تكنو حماسية وسريعة جدا مناسبة للألعاب -->
+<!-- موسيقى تكنو حماسية وأصوات تفاعلية -->
 <audio id="bg-music" loop src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-8.mp3"></audio> 
 <audio id="correct-sound" src="https://actions.google.com/sounds/v1/alarms/digital_watch_alarm_long.ogg"></audio>
 <audio id="wrong-sound" src="https://actions.google.com/sounds/v1/alarms/mechanical_clock_ring.ogg"></audio>
 
-<script>
-    let localLeaderboard = JSON.parse(localStorage.getItem('captain_leaderboard')) || {};
-    
-    // 🛡️ مستودع حظر الأسئلة المكررة (مستحيل يظهر سؤال مرتين!)
-    let sessionSeenQuestions = []; 
+<!-- 🚨 ربط مكتبات Firebase والـ Database تلقائياً 🚨 -->
+<script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+    import { getDatabase, ref, set, get, child, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+    // كود تطبيقك Mo.A الخاص بـ Firebase
+    const firebaseConfig = {
+      apiKey: "AIzaSyDAjJIkqBO9f--vllY-QmEu5m1CWV3WgJ4",
+      authDomain: "captain-quiz-ae011.firebaseapp.com",
+      databaseURL: "https://captain-quiz-ae011-default-rtdb.firebaseio.com", // مربوطة مباشرة بقاعدتك
+      projectId: "captain-quiz-ae011",
+      storageBucket: "captain-quiz-ae011.firebasestorage.app",
+      messagingSenderId: "28268465209",
+      appId: "1:28268465209:web:f88d44e2b9d3ea3b4151e8",
+      measurementId: "G-4K3F287CVM"
+    };
+
+    // تهيئة Firebase والـ Realtime Database
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
+
+    // جعل الدوال متاحة على مستوى الصفحة
+    window.db = db;
+    window.ref = ref;
+    window.set = set;
+    window.get = get;
+    window.child = child;
+    window.update = update;
+</script>
+
+<script>
+    let sessionSeenQuestions = []; 
     let activeQuestions = [];
     let currentQuestionIndex = 0;
     let score = 0;
@@ -244,7 +270,6 @@
     let isMusicPlaying = false;
     const maxQuestionsPerRound = 8;
 
-    // الأسئلة اليدوية الأساسية
     const baseQuestions = {
         sports: [
             { q: "من هو اللاعب الأكثر تتويجاً بجائزة الكرة الذهبية (Ballon d'Or) في التاريخ؟", opts: ["كريستيانو رونالدو", "ليونيل ميسي", "بيليه", "مارادونا"], ans: 1 },
@@ -269,13 +294,11 @@
         ]
     };
 
-    // 💡 مولد الأسئلة الذكي - يولد ملايين الأسئلة الفريدة في أجزاء من الثانية
     function generateDynamicQuestion(category) {
         let attempts = 0;
         while(attempts < 50) {
             let qItem = null;
             if (category === 'math' || (category === 'mix' && Math.random() > 0.5)) {
-                // توليد عمليات حسابية ومسائل ذكية عشوائية بالكامل
                 const num1 = Math.floor(Math.random() * 30) + 10;
                 const num2 = Math.floor(Math.random() * 12) + 2;
                 const ops = ['+', '-', '*'];
@@ -305,7 +328,6 @@
                 qItem = { q: qText, opts: opts.map(o => o.toString()), ans: opts.indexOf(correctAns), dynamic: true };
 
             } else {
-                // توليد أسئلة كروية من قوالب متعددة ومختلفة
                 const templates = [
                     {
                         q: "إذا فاز فريق بـ {win} مباريات وتعادل في {draw}، فكم نقطة حصل عليها؟",
@@ -344,14 +366,11 @@
                 }
             }
 
-            // التأكد التام أن السؤال الجديد لم يسبق رؤيته في الجلسة كلها
             if (qItem && !sessionSeenQuestions.includes(qItem.q)) {
                 return qItem;
             }
             attempts++;
         }
-        
-        // لو تعذر التوليد (حالة نادرة جداً) نرجع سؤال احتياطي غير مكرر
         return { q: "ما هو الاسم البرمجي لهذه اللعبة القتالية؟", opts: ["دوري القائد", "سوبر ماريو", "كول اوف ديوتي", "فيفا"], ans: 0, dynamic: true };
     }
 
@@ -363,29 +382,29 @@
             btn.innerText = "🔇";
             isMusicPlaying = false;
         } else {
-            music.volume = 0.25; // صوت متزن وحماسي في الخلفية
+            music.volume = 0.25;
             music.play().then(() => {
                 btn.innerText = "🔊";
                 isMusicPlaying = true;
-            }).catch(e => console.log("تحتاج ضغطة زر لتفعيل الصوت"));
+            }).catch(e => console.log("تفعيل يدوي مطلوب"));
         }
     }
 
     function registerPlayer() {
         const input = document.getElementById('player-name');
-        playerName = input.value.trim();
+        // تحويل الاسم لاسم آمن في قواعد البيانات (إزالة الرموز الخاصة)
+        playerName = input.value.trim().replace(/[\.\#\$\[\]]/g, "-");
         if (playerName === "") {
-            alert("اكتب اسمك الأول يا قائد للتحدي!");
+            alert("اكتب اسمك الأول يا بطل للدخول!");
             return;
         }
 
-        // تشغيل فوري وإجباري للموسيقى الحماسية الجديدة
         const music = document.getElementById('bg-music');
         music.volume = 0.25;
         music.play().then(() => {
             document.getElementById('vol-btn').innerText = "🔊";
             isMusicPlaying = true;
-        }).catch(err => console.log("تفعيل الصوت تم"));
+        }).catch(err => console.log("الصوت مفعل"));
 
         document.getElementById('login-box').classList.add('hide');
         document.getElementById('setup-box').classList.remove('hide');
@@ -402,7 +421,6 @@
         currentQuestionIndex = 0;
         activeQuestions = [];
 
-        // 1. تجميع الأسئلة الثابتة غير المكررة فقط
         let pool = [];
         if (category === 'mix') {
             pool = [...baseQuestions.sports, ...baseQuestions.math, ...baseQuestions.general];
@@ -410,21 +428,17 @@
             pool = [...(baseQuestions[category] || [])];
         }
 
-        // تصفية الأسئلة لإزالة أي شيء تم رؤيته سابقاً في هذه الجلسة
         let freshPool = pool.filter(qItem => !sessionSeenQuestions.includes(qItem.q));
         freshPool.sort(() => Math.random() - 0.5);
 
-        // 2. تعبئة جولة الـ 8 أسئلة
         while (activeQuestions.length < maxQuestionsPerRound) {
             if (freshPool.length > 0) {
                 activeQuestions.push(freshPool.pop());
             } else {
-                // إذا نفدت الأسئلة اليدوية، نولد تلقائياً سؤالاً فريداً ومضموناً 100%
                 activeQuestions.push(generateDynamicQuestion(category));
             }
         }
 
-        // إضافة الأسئلة التي اخترناها لهذه الجولة إلى قائمة "المحظور تكرارها" فوراً
         activeQuestions.forEach(qItem => sessionSeenQuestions.push(qItem.q));
 
         document.getElementById('setup-box').classList.add('hide');
@@ -503,43 +517,74 @@
         }, 2200);
     }
 
-    function showResult() {
+    // 🚀 تحديث وحفظ النقاط في الـ Firebase Database وعرض الترتيب
+    async function showResult() {
         document.getElementById('quiz-box').classList.add('hide');
         document.getElementById('result-box').classList.remove('hide');
         document.getElementById('final-score').innerText = score;
 
-        if (!localLeaderboard[playerName]) {
-            localLeaderboard[playerName] = 0;
-        }
-        localLeaderboard[playerName] += score;
-        localStorage.setItem('captain_leaderboard', JSON.stringify(localLeaderboard));
+        const playerRef = window.ref(window.db, 'leaderboard/' + playerName);
+        
+        try {
+            // جلب النقاط القديمة إن وجدت لزيادة النقاط الجديدة عليها
+            const snapshot = await window.get(playerRef);
+            let totalScore = score;
+            if (snapshot.exists()) {
+                totalScore += snapshot.val().pts || 0;
+            }
+            
+            // تحديث البيانات على Firebase
+            await window.set(playerRef, {
+                name: playerName,
+                pts: totalScore,
+                lastPlay: new Date().toLocaleString()
+            });
 
-        document.getElementById('total-league-score').innerText = localLeaderboard[playerName];
-        renderLeaderboard();
+            document.getElementById('total-league-score').innerText = totalScore;
+        } catch (error) {
+            console.error("حدث خطأ أثناء حفظ النقاط: ", error);
+            document.getElementById('total-league-score').innerText = score + " (محلي)";
+        }
+
+        renderFirebaseLeaderboard();
     }
 
-    function renderLeaderboard() {
+    // 🏆 جلب وقراءة الترتيب فوراً من قاعدة البيانات
+    async function renderFirebaseLeaderboard() {
         const tbody = document.getElementById('leaderboard-body');
-        tbody.innerHTML = "";
+        tbody.innerHTML = "<tr><td colspan='3'>جاري تحميل الترتيب المباشر...</td></tr>";
 
-        const sortedScores = Object.entries(localLeaderboard)
-            .map(([name, pts]) => ({ name, pts }))
-            .sort((a, b) => b.pts - a.pts);
+        const leaderboardRef = window.ref(window.db, 'leaderboard');
+        try {
+            const snapshot = await window.get(leaderboardRef);
+            if (snapshot.exists()) {
+                tbody.innerHTML = "";
+                const data = snapshot.val();
+                
+                // تحويل الكائنات إلى مصفوفة وترتيبها تنازلياً حسب النقاط
+                const sortedScores = Object.values(data).sort((a, b) => b.pts - a.pts);
 
-        sortedScores.forEach((player, index) => {
-            const tr = document.createElement('tr');
-            let rankClass = "";
-            if (index === 0) rankClass = "rank-1";
-            else if (index === 1) rankClass = "rank-2";
-            else if (index === 2) rankClass = "rank-3";
+                sortedScores.forEach((player, index) => {
+                    const tr = document.createElement('tr');
+                    let rankClass = "";
+                    if (index === 0) rankClass = "rank-1";
+                    else if (index === 1) rankClass = "rank-2";
+                    else if (index === 2) rankClass = "rank-3";
 
-            tr.innerHTML = `
-                <td class="${rankClass}">${index + 1}</td>
-                <td>${player.name}</td>
-                <td>${player.pts}</td>
-            `;
-            tbody.appendChild(tr);
-        });
+                    tr.innerHTML = `
+                        <td class="${rankClass}">${index + 1}</td>
+                        <td>${player.name}</td>
+                        <td>${player.pts}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = "<tr><td colspan='3'>لا يوجد لعيبة مسجلين حتى الآن. ابدأ اللعب لتكون الأول!</td></tr>";
+            }
+        } catch (error) {
+            console.error("خطأ في جلب الترتيب: ", error);
+            tbody.innerHTML = "<tr><td colspan='3'>حدث خطأ أثناء الاتصال بالدوري المباشر.</td></tr>";
+        }
     }
 </script>
 
